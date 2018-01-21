@@ -1,6 +1,50 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+## Rubric Points
+
+The main goal of this project is to implement a PID, or Proportional-Integral-Differential Controller
+capable of steering a car around the Udacity simulator track without leaving the driveable portion
+of the track or otherwise performing any action that would be considered unsafe by any human passengers
+in the vehicle.
+
+### PID Components
+
+The PID Controller is made up of three components:
+
+#### Proportional
+
+The P, or Proportional, component is the main driver of the controller. It responds in proportion to
+the distance of the vehicle from the center line (i.e. the crosstrack error): if it's far to the right,
+it steers hard to the left; if it's slightly to the left then it steers slightly to the right.
+
+This component alone has a tendency to over-correct and overshoot the target position, causing the car
+to slalom back and forth across the center line.
+
+#### Differential
+
+The D or Differential component in this algorithm serves to smooth the aproach to the center line and
+prevent overshooting. It does so by computing the derivative of the crosstrack error and dampening
+the severity of the steering angle as the vehicle approaches the center line.
+
+
+#### Integral
+
+The I or Integral component is an attempt to counteract systematic bias, e.g. due to misaligned wheels
+as discussed in the course materials. In a case where there is some reason why the P and D components are
+going to converge on a solution with a large cross-track error, the Integral component will add some weight
+to shift the controller towards the correct solution. It achieves this by summing the values of the cross
+track errors over time, with the effect that if the PD components produce a consistently bad state they
+will add to the weight of the I component and that will cause the controller to shift back towards the
+center line.
+
+### Selecting Hyperparameter Values
+
+For this iteration of the project, I used manually tuned hyperparameters of `(P=0.2, I=0.01, D=2)`. These were selected through trial and error and are certainly not optimal, although they do result in a controller capable of steering the vehicle around the track, albeit not very smoothly.
+
+The intention is to implement the Twiddle algorithm, but it's going to involve some code refactoring and so I am submitting this as a working-but-suboptimal solution in case I don't get it finished before the deadline!
+
+
 ---
 
 ## Dependencies
